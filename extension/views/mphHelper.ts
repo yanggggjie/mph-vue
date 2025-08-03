@@ -24,22 +24,25 @@ export function setupHtml(webview: Webview, context: ExtensionContext): string {
   }
 }
 
-// 监听活动编辑器变化并自动刷新
+// 监听活动编辑器变化（已禁用自动刷新，改为手动刷新模式）
 export function setupActiveEditorListener(webview: Webview, disposables: Disposable[]): void {
-  logger.info('👁️ 设置活动编辑器监听器');
+  logger.info('👁️ 设置活动编辑器监听器（手动刷新模式）');
   
   const addListener = useEvent(window.onDidChangeActiveTextEditor);
   addListener((editor) => {
     logger.info('📝 Active editor changed:', editor ? 'exists' : 'null');
-    if (editor) {
-      // 延迟一点时间确保编辑器完全激活
-      setTimeout(() => {
-        handleRefresh(webview, {});
-      }, 100);
-    }
+    logger.info('🔧 手动刷新模式已启用，不会自动刷新组件信息');
+    
+    // 🚫 已禁用自动刷新 - 需要用户手动点击刷新按钮
+    // if (editor) {
+    //   // 延迟一点时间确保编辑器完全激活
+    //   setTimeout(() => {
+    //     handleRefresh(webview, {});
+    //   }, 100);
+    // }
   }, null, disposables);
   
-  logger.info('✅ 活动编辑器监听器设置完成');
+  logger.info('✅ 活动编辑器监听器设置完成（手动刷新模式）');
 }
 
 // 设置 webview 消息钩子

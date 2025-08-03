@@ -113,10 +113,12 @@ function extractComponentName(relativeFilePath: string): string {
   return fileName.replace('.json', '');
 }
 
-// 组件挂载时初始化
+// 组件挂载时初始化（仅显示初始状态，不自动刷新）
 onMounted(() => {
   console.log('MphAnalyzer mounted, window.__MPH_INIT__:', (window as any).__MPH_INIT__);
-  refreshComponentInfo();
+  console.log('🔧 手动刷新模式已启用，请点击刷新按钮获取数据');
+  // 不再自动刷新，需要用户手动点击刷新按钮
+  // refreshComponentInfo();
 });
 </script>
 
@@ -127,6 +129,7 @@ onMounted(() => {
       <button 
         @click="refreshComponentInfo"
         :disabled="isLoading"
+        title="手动刷新模式：点击获取当前文件的组件使用情况"
         class="w-full px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
         :class="isLoading 
           ? 'bg-[var(--vscode-button-secondaryBackground)] text-[var(--vscode-button-secondaryForeground)] cursor-not-allowed opacity-70' 
@@ -135,7 +138,7 @@ onMounted(() => {
         <span class="text-base" :class="isLoading ? 'animate-spin' : ''">
           {{ isLoading ? '⏳' : '🔄' }}
         </span>
-        <span>{{ isLoading ? '正在分析组件...' : '刷新组件分析' }}</span>
+        <span>{{ isLoading ? '正在分析组件...' : '手动刷新分析' }}</span>
       </button>
     </div>
 
@@ -235,8 +238,11 @@ onMounted(() => {
       <div v-else class="text-center py-16 text-[var(--vscode-descriptionForeground)]">
         <div class="text-5xl mb-4">📂</div>
         <div class="text-lg font-medium mb-2">暂无激活文件</div>
-        <div class="text-sm opacity-80">
-          请打开一个文件后点击刷新按钮
+        <div class="text-sm opacity-80 mb-4">
+          请打开一个微信小程序文件后点击刷新按钮
+        </div>
+        <div class="text-xs bg-[var(--vscode-editor-inactiveSelectionBackground)] px-3 py-2 rounded-lg inline-block">
+          <span class="opacity-60">🔧 手动刷新模式：</span>需要手动点击刷新按钮获取数据
         </div>
       </div>
     </div>
