@@ -1,0 +1,117 @@
+{
+  "publisher": "mph-dev",
+  "name": "mph-vue",
+  "displayName": "MPH - 微信小程序组件使用情况查找器 (Vue版)",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "description": "专为微信小程序开发者设计的组件使用情况分析工具。快速查找组件在项目中的使用位置，支持精确定位到WXML文件的具体行列，提供一键跳转功能。基于Vue技术栈开发。",
+  "main": "dist/extension/index.js",
+  "engines": {
+    "node": ">=18",
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other",
+    "Debuggers",
+    "Extension Packs"
+  ],
+  "keywords": [
+    "微信小程序",
+    "miniprogram",
+    "wechat",
+    "component",
+    "组件",
+    "usage",
+    "search",
+    "find",
+    "wxml",
+    "json",
+    "vue"
+  ],
+  "activationEvents": [
+    "onLanguage:json",
+    "onLanguage:javascript",
+    "onLanguage:typescript"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "mph.helloWorld",
+        "title": "Hello World",
+        "category": "MPH"
+      },
+      {
+        "command": "mph.openPanel",
+        "title": "打开 MPH 面板",
+        "category": "MPH"
+      },
+      {
+        "command": "mph.refresh",
+        "title": "刷新组件信息",
+        "icon": "$(refresh)",
+        "category": "MPH"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "mph-explorer",
+          "title": "MPH - 组件分析器",
+          "icon": "$(search-view-icon)"
+        }
+      ]
+    },
+    "views": {
+      "mph-explorer": [
+        {
+          "type": "webview",
+          "id": "mphView",
+          "name": "组件使用情况",
+          "when": "true"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "mph.refresh",
+          "when": "view == mphView",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "mph.openPanel",
+          "when": "true"
+        },
+        {
+          "command": "mph.refresh",
+          "when": "true"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tomjs/vscode": "^2.5.0",
+    "@tomjs/vscode-webview": "^2.0.0",
+    "@vscode/webview-ui-toolkit": "^1.4.0",
+    "vue": "^3.5.11"
+  },
+  "devDependencies": {
+    "@tomjs/tsconfig": "^2.0.0",
+    "@tomjs/vite-plugin-vscode": "^5.0.0",
+    "@types/vscode": "^1.75.0",
+    "@types/vscode-webview": "^1.57.5",
+    "@types/node": "20.x",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "typescript": "^5.8.3",
+    "vue-tsc": "^2.1.10",
+    "vite": "^7.0.6"
+  }
+}
