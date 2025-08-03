@@ -95,13 +95,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="mph-analyzer">
+  <div class="p-4 h-full overflow-y-auto font-sans text-[var(--vscode-foreground)] bg-[var(--vscode-editor-background)]">
     <!-- 刷新按钮 -->
-    <div class="refresh-section">
+    <div class="mb-4">
       <vscode-button 
         :disabled="isLoading" 
         @click="refreshComponentInfo"
-        class="refresh-btn"
+        class="w-full"
       >
         <span v-if="isLoading">🔄 刷新中...</span>
         <span v-else>🔄 刷新组件信息</span>
@@ -109,81 +109,83 @@ onMounted(() => {
     </div>
 
     <!-- 文件信息 -->
-    <div v-if="fileInfo" class="file-info">
-      <div class="file-name">📄 {{ fileInfo.fileName }}</div>
+    <div v-if="fileInfo" class="bg-[var(--vscode-editor-inactiveSelectionBackground)] p-3 rounded-lg border-l-4 border-[var(--vscode-textLink-foreground)] mb-4 shadow-sm">
+      <div class="font-bold text-base mb-1.5 text-[var(--vscode-textLink-foreground)] flex items-center gap-1">
+        <span>📄</span> {{ fileInfo.fileName }}
+      </div>
       <div 
-        class="file-path clickable" 
+        class="font-mono text-xs text-[var(--vscode-descriptionForeground)] break-all cursor-pointer px-1 py-0.5 rounded transition-colors duration-200 hover:bg-[var(--vscode-list-hoverBackground)] hover:text-[var(--vscode-textLink-foreground)]"
         @click="openCurrentFile(fileInfo.absolutePath)"
         :title="fileInfo.absolutePath"
       >
-        📁 {{ fileInfo.relativePath }}
+        <span>📁</span> {{ fileInfo.relativePath }}
       </div>
     </div>
 
     <!-- 组件使用情况 -->
-    <div class="usage-section">
-      <div class="usage-title">
-        🔍 组件使用情况 ({{ usageCount }})
+    <div class="mb-4">
+      <div class="text-base font-bold text-[var(--vscode-textLink-foreground)] mb-3 border-b border-[var(--vscode-panel-border)] pb-2 flex items-center gap-1">
+        <span>🔍</span> 组件使用情况 ({{ usageCount }})
       </div>
       
       <!-- 有使用情况时 -->
-      <div v-if="hasUsages" class="usage-list">
+      <div v-if="hasUsages" class="flex flex-col gap-4">
         <div 
           v-for="usage in componentUsages" 
           :key="usage.usedInFile" 
-          class="usage-item"
+          class="bg-[var(--vscode-editor-background)] border border-[var(--vscode-panel-border)] p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
         >
-          <div class="component-name">
-            🧩 {{ extractComponentName(usage.relativeFilePath) }}
+          <div class="font-bold text-base text-[var(--vscode-textLink-foreground)] mb-2 flex items-center gap-1">
+            <span>🧩</span> {{ extractComponentName(usage.relativeFilePath) }}
           </div>
           
           <div 
-            class="reference-path clickable"
+            class="text-xs mb-1.5 break-all text-[var(--vscode-textPreformat-foreground)] bg-[var(--vscode-textBlockQuote-background)] px-2 py-1 rounded cursor-pointer transition-colors duration-200 hover:bg-[var(--vscode-list-hoverBackground)] hover:text-[var(--vscode-textLink-foreground)]"
             @click="openReferenceFile(usage.usedInFile, usage.componentName, usage.referencePath)"
             :title="usage.referencePath"
           >
-            🔗 引用链接: {{ usage.referencePath }}
+            <span>🔗</span> 引用链接: {{ usage.referencePath }}
           </div>
           
           <div 
-            class="used-in-file clickable"
+            class="text-xs mb-1.5 text-[var(--vscode-descriptionForeground)] cursor-pointer px-1 py-0.5 rounded transition-colors duration-200 hover:bg-[var(--vscode-list-hoverBackground)] hover:text-[var(--vscode-textLink-foreground)]"
             @click="openFile(usage.wxmlFilePath)"
             :title="usage.wxmlFilePath"
           >
-            📄 使用于: {{ usage.wxmlRelativePath }}
+            <span>📄</span> 使用于: {{ usage.wxmlRelativePath }}
           </div>
           
-          <div class="positions">
+          <div class="flex flex-wrap gap-2 mt-2">
             <vscode-button 
               v-for="pos in usage.positions" 
               :key="`${pos.line}-${pos.column}`"
               size="small"
               appearance="secondary"
               @click="openFileAtPosition(usage.wxmlFilePath, pos.line, pos.column)"
-              class="position-btn"
+              class="text-[11px]"
             >
-              📃 line:{{ pos.line }} col:{{ pos.column }}
+              <span>📃</span> line:{{ pos.line }} col:{{ pos.column }}
             </vscode-button>
           </div>
         </div>
       </div>
       
       <!-- 无使用情况时 -->
-      <div v-else-if="fileInfo && fileInfo.isValidType" class="no-usage">
-        <div class="no-usage-text">未找到此组件的使用情况</div>
+      <div v-else-if="fileInfo && fileInfo.isValidType" class="text-center p-8 text-[var(--vscode-descriptionForeground)] italic bg-[var(--vscode-editor-inactiveSelectionBackground)] rounded-lg">
+        <div>未找到此组件的使用情况</div>
       </div>
       
       <!-- 文件类型不支持时 -->
-      <div v-else-if="fileInfo && fileInfo.isValidType === false" class="no-support">
-        <div class="no-support-text">
+      <div v-else-if="fileInfo && fileInfo.isValidType === false" class="text-center p-8 bg-[var(--vscode-inputValidation-warningBackground)] border border-[var(--vscode-inputValidation-warningBorder)] rounded-lg text-[var(--vscode-inputValidation-warningForeground)] italic">
+        <div>
           当前文件类型不支持组件分析<br>
           请打开微信小程序相关文件 (.json, .js, .ts, .wxml, .wxss)
         </div>
       </div>
       
       <!-- 无文件时 -->
-      <div v-else class="no-file">
-        <div class="no-file-text">
+      <div v-else class="text-center py-12 text-[var(--vscode-descriptionForeground)] italic">
+        <div>
           暂无激活的文件<br>
           请打开一个文件后点击刷新
         </div>
@@ -191,152 +193,8 @@ onMounted(() => {
     </div>
 
     <!-- 最后更新时间 -->
-    <div v-if="lastUpdated" class="time">
+    <div v-if="lastUpdated" class="mt-4 text-[11px] text-[var(--vscode-descriptionForeground)] text-center">
       最后更新: {{ lastUpdated }}
     </div>
   </div>
 </template>
-
-<style scoped>
-.mph-analyzer {
-  padding: 16px;
-  font-family: var(--vscode-font-family);
-  color: var(--vscode-foreground);
-  background-color: var(--vscode-editor-background);
-  height: 100%;
-  overflow-y: auto;
-}
-
-.refresh-section {
-  margin-bottom: 16px;
-}
-
-.refresh-btn {
-  width: 100%;
-}
-
-.file-info {
-  background-color: var(--vscode-editor-inactiveSelectionBackground);
-  padding: 12px;
-  border-radius: 4px;
-  margin-bottom: 16px;
-  border-left: 3px solid var(--vscode-textLink-foreground);
-}
-
-.file-name {
-  font-weight: bold;
-  font-size: 14px;
-  margin-bottom: 6px;
-  color: var(--vscode-textLink-foreground);
-}
-
-.file-path {
-  font-family: var(--vscode-editor-font-family);
-  font-size: 12px;
-  color: var(--vscode-descriptionForeground);
-  word-break: break-all;
-}
-
-.clickable {
-  cursor: pointer;
-  padding: 2px 4px;
-  border-radius: 3px;
-  transition: background-color 0.2s;
-}
-
-.clickable:hover {
-  background-color: var(--vscode-list-hoverBackground);
-  color: var(--vscode-textLink-foreground);
-}
-
-.usage-section {
-  margin-bottom: 16px;
-}
-
-.usage-title {
-  font-size: 14px;
-  font-weight: bold;
-  color: var(--vscode-textLink-foreground);
-  margin-bottom: 12px;
-  border-bottom: 1px solid var(--vscode-panel-border);
-  padding-bottom: 6px;
-}
-
-.usage-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.usage-item {
-  background-color: var(--vscode-editor-background);
-  border: 1px solid var(--vscode-panel-border);
-  padding: 12px;
-  border-radius: 4px;
-}
-
-.component-name {
-  font-weight: bold;
-  font-size: 14px;
-  color: var(--vscode-textLink-foreground);
-  margin-bottom: 8px;
-}
-
-.reference-path, .used-in-file {
-  font-size: 12px;
-  margin-bottom: 6px;
-  word-break: break-all;
-}
-
-.reference-path {
-  color: var(--vscode-textPreformat-foreground);
-  background-color: var(--vscode-textBlockQuote-background);
-  padding: 4px 6px;
-  border-radius: 3px;
-}
-
-.used-in-file {
-  color: var(--vscode-descriptionForeground);
-}
-
-.positions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 8px;
-}
-
-.position-btn {
-  font-size: 11px;
-}
-
-.no-usage, .no-support, .no-file {
-  text-align: center;
-  padding: 24px;
-  color: var(--vscode-descriptionForeground);
-  font-style: italic;
-}
-
-.no-usage {
-  background-color: var(--vscode-editor-inactiveSelectionBackground);
-  border-radius: 4px;
-}
-
-.no-support {
-  background-color: var(--vscode-inputValidation-warningBackground);
-  border: 1px solid var(--vscode-inputValidation-warningBorder);
-  border-radius: 4px;
-  color: var(--vscode-inputValidation-warningForeground);
-}
-
-.no-file {
-  padding: 40px;
-}
-
-.time {
-  margin-top: 16px;
-  font-size: 11px;
-  color: var(--vscode-descriptionForeground);
-  text-align: center;
-}
-</style>

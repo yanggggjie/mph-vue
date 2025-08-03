@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import './index.css';
 import MphAnalyzer from './components/MphAnalyzer.vue';
 
 console.log('--inject--', window.__FLAG1__, window.__FLAG2__);
