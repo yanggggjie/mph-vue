@@ -296,6 +296,11 @@
   dependencies:
     quansync "^0.2.10"
 
+"@reactive-vscode/reactivity@0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@reactive-vscode/reactivity/-/reactivity-0.3.1.tgz#8618a5da6ea12fe14ddfc6a3dd1187ac252ffaec"
+  integrity sha512-9Q8ThxVPo5qm78OQeZSOGd8ZtW4xi9O5TCCvzhx8sjcS42AsIsIvyAtIvbZyiWbcTmARuxWY8ejahCSF/Murvg==
+
 "@rolldown/binding-android-arm64@1.0.0-beta.30":
   version "1.0.0-beta.30"
   resolved "https://registry.yarnpkg.com/@rolldown/binding-android-arm64/-/binding-android-arm64-1.0.0-beta.30.tgz#beaef56d4c7971b773d9ecdc5700ae6cb1d59aaa"
@@ -1364,6 +1369,13 @@ quansync@^0.2.10, quansync@^0.2.8:
   version "0.2.10"
   resolved "https://registry.npmjs.org/quansync/-/quansync-0.2.10.tgz"
   integrity sha512-t41VRkMYbkHyCYmOvx/6URnN80H7k4X0lLdBMGsz+maAwrJQYB1djpV6vHrQIBE0WBSGqhtEHrK9U3DWWH8v7A==
+
+reactive-vscode@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/reactive-vscode/-/reactive-vscode-0.3.1.tgz#3ad220c54008dd4d42480d0cb9da27715dcc5c45"
+  integrity sha512-uTMKdAHa9/Ax95VbswZsIOXH3k8fb45BKkLxU5RHaXOFbpudHlA9tecXQpKqPGkuyGFGZyPrjLBIGNBvB/qOYg==
+  dependencies:
+    "@reactive-vscode/reactivity" "0.3.1"
 
 readdirp@^4.0.1:
   version "4.1.2"

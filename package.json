@@ -101,6 +101,7 @@
     "@tomjs/vscode": "^2.5.0",
     "@tomjs/vscode-webview": "^2.0.0",
     "@vscode/webview-ui-toolkit": "^1.4.0",
+    "reactive-vscode": "^0.3.1",
     "vue": "^3.5.11"
   },
   "devDependencies": {

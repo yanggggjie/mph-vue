@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { useLogger } from 'reactive-vscode';
 
 // 定义位置信息接口
 export interface ComponentPosition {
@@ -20,11 +21,13 @@ export interface ComponentUsage {
 
 // 主函数：查找组件使用情况
 export function findComponentUsages(currentFilePath: string, projectRoot?: string): ComponentUsage[] {
+  const logger = useLogger('Component Finder');
   const workspaceRoot = projectRoot || path.resolve(__dirname, '..');
   const results: ComponentUsage[] = [];
 
-  console.log(`📁 当前文件: ${currentFilePath}`);
-  console.log(`📁 工作区根目录: ${workspaceRoot}`);
+  logger.info('🔍 开始查找组件使用情况');
+  logger.info('📁 当前文件:', currentFilePath);
+  logger.info('📁 工作区根目录:', workspaceRoot);
   
   // 智能查找扫描目录
   function findScanRoot(): string {
@@ -38,12 +41,12 @@ export function findComponentUsages(currentFilePath: string, projectRoot?: strin
     
     for (const dir of possibleDirs) {
       if (fs.existsSync(dir)) {
-        console.log(`📁 找到扫描目录: ${dir}`);
+        logger.info('📁 找到扫描目录:', dir);
         return dir;
       }
     }
     
-    console.log(`📁 使用工作区根目录: ${workspaceRoot}`);
+    logger.info('📁 使用工作区根目录:', workspaceRoot);
     return workspaceRoot;
   }
   
@@ -62,7 +65,7 @@ export function findComponentUsages(currentFilePath: string, projectRoot?: strin
     while (componentPath && componentPath !== '.' && componentPath !== '/') {
       const jsonFilePath = path.join(workspaceRoot, componentPath, path.basename(componentPath) + '.json');
       if (fs.existsSync(jsonFilePath)) {
-        console.log(`🎯 检测到组件目录: ${componentPath}`);
+        logger.info('🎯 检测到组件目录:', componentPath);
         return componentPath;
       }
       componentPath = path.dirname(componentPath);
@@ -86,7 +89,7 @@ export function findComponentUsages(currentFilePath: string, projectRoot?: strin
       
       // 检查wxml文件是否存在
       if (!fs.existsSync(wxmlFilePath)) {
-        console.log(`WXML文件不存在: ${wxmlFilePath}`);
+        logger.info('📄 WXML文件不存在:', wxmlFilePath);
         return [];
       }
 
@@ -104,8 +107,8 @@ export function findComponentUsages(currentFilePath: string, projectRoot?: strin
       const positions: ComponentPosition[] = [];
       const lines = wxmlContent.split('\n');
       
-      console.log(`正在检查文件: ${wxmlFilePath}`);
-      console.log(`查找组件: ${componentName} (转义后: ${escapedComponentName})`);
+      logger.info('📄 正在检查文件:', wxmlFilePath);
+      logger.info('🔍 查找组件:', `${componentName} (转义后: ${escapedComponentName})`);
       
       // 在整个文件内容中查找匹配
       let match;
@@ -124,13 +127,13 @@ export function findComponentUsages(currentFilePath: string, projectRoot?: strin
         
         // 获取匹配所在行的内容用于调试
         const matchLine = lines[lineNumber - 1] || '';
-        console.log(`找到组件使用: line ${position.line}, col ${position.column} - "${matchLine.trim()}"`);
+        logger.info('✅ 找到组件使用:', `line ${position.line}, col ${position.column} - "${matchLine.trim()}"`);
       }
       
-      console.log(`总共找到 ${positions.length} 个使用位置`);
+      logger.info('📊 总共找到', positions.length, '个使用位置');
       return positions;
     } catch (error) {
-      console.warn(`检查WXML文件时出错: ${jsonFilePath.replace('.json', '.wxml')}`, error);
+      logger.error('❌ 检查WXML文件时出错:', jsonFilePath.replace('.json', '.wxml'), error);
       return [];
     }
   }
@@ -189,12 +192,11 @@ export function findComponentUsages(currentFilePath: string, projectRoot?: strin
                     positions
                   });
 
-                  console.log(`✅ 组件 "${componentName}" 被引用于: ${relativeFilePath}`);
-                  console.log(`   引用路径: ${compPath}`);
-                  console.log(`   位置: ${positions.map(p => `line:${p.line} col:${p.column}`).join(', ')}`);
-                  console.log('');
+                  logger.info('✅ 组件被引用:', `"${componentName}" 在 ${relativeFilePath}`);
+                  logger.info('📍 引用路径:', compPath);
+                  logger.info('📌 位置:', positions.map(p => `line:${p.line} col:${p.column}`).join(', '));
                 } else {
-                  console.log(`⚠️  组件 "${componentName}" 在JSON中声明但在WXML中未使用: ${path.relative(workspaceRoot, fullPath)}`);
+                  logger.warn('⚠️ 组件在JSON中声明但在WXML中未使用:', `"${componentName}" 在 ${path.relative(workspaceRoot, fullPath)}`);
                 }
               }
             }
@@ -202,30 +204,33 @@ export function findComponentUsages(currentFilePath: string, projectRoot?: strin
         } catch (e) {
           // 忽略解析错误的JSON文件
           if (e instanceof SyntaxError) {
-            // console.warn(`⚠️  JSON解析错误: ${fullPath}`);
+            logger.warn('⚠️ JSON解析错误:', fullPath);
+          } else {
+            logger.error('❌ 读取文件时出错:', fullPath, e);
           }
         }
       }
     }
   }
 
-  console.log(`🔍 正在查找组件 "${targetComponentPath}" 的引用...\n`);
+  logger.info('🔍 正在查找组件引用:', targetComponentPath);
   searchComponentUsages(scanRoot);
-  console.log(`🎉 搜索完成！找到 ${results.length} 个引用`);
+  logger.info('🎉 搜索完成！找到', results.length, '个引用');
 
   return results;
 }
 
 // 如果直接运行此文件，使用命令行参数
 if (import.meta.url === `file://${process.argv[1]}`) {
+  const cliLogger = useLogger('Component Finder CLI');
   const currentFilePath = process.argv[2];
   
   if (!currentFilePath) {
-    console.error('❌ 请提供文件路径参数');
-    console.log('用法: node find-usage.ts <文件路径>');
+    cliLogger.error('❌ 请提供文件路径参数');
+    cliLogger.info('用法: node find-usage.ts <文件路径>');
     process.exit(1);
   }
 
   const results = findComponentUsages(currentFilePath);
-  console.log(`\n📊 最终结果: 找到 ${results.length} 个组件引用`);
+  cliLogger.info('📊 最终结果: 找到', results.length, '个组件引用');
 }
