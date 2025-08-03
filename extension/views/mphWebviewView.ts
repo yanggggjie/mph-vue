@@ -24,10 +24,7 @@ export const useMphWebviewView = createSingletonComposable(() => {
         }
       }),
       title: 'MPH组件分析',
-      onDidReceiveMessage(message: any) {
-        logger.info('📨 WebView 收到消息:', message.type)
-        // 消息处理已经在 setupWebviewHooks 中实现，这里只记录日志
-      },
+      // 移除这里的 onDidReceiveMessage，让 setupWebviewHooks 来处理所有消息
     },
   )
 
@@ -43,6 +40,7 @@ export const useMphWebviewView = createSingletonComposable(() => {
         const vueHtml = setupHtml(view.value.webview, extensionContext.value)
         view.value.webview.html = vueHtml
         logger.info('🎨 HTML 内容设置成功')
+        
         
         // 设置消息处理钩子
         setupWebviewHooks(view.value.webview, disposables)
@@ -63,8 +61,11 @@ export const useMphWebviewView = createSingletonComposable(() => {
   function updateWebview() {
     logger.info('🔄 updateWebview 被调用')
     if (view.value) {
-      view.value.webview.postMessage({ type: 'refresh', data: {} })
-      logger.info('✅ 已发送刷新消息到 webview')
+      // 不直接发送消息，而是触发 handleRefresh 来处理完整的数据获取和发送
+      logger.info('🔄 通过 handleRefresh 处理数据刷新')
+      // 导入并调用 handleRefresh
+      const { handleRefreshExternal } = require('./mphHelper')
+      handleRefreshExternal(view.value.webview)
     } else {
       logger.warn('⚠️ WebView 未初始化，无法刷新')
     }

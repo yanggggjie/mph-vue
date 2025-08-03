@@ -1,9 +1,10 @@
 import { defineExtension, useCommand, useLogger } from 'reactive-vscode'
 import { window, commands } from 'vscode'
 import { useMphWebviewView } from './views/mphWebviewView'
+export const logger = useLogger('MPH Vue')
 
 const {activate,deactivate} = defineExtension((context) => {
-  const logger = useLogger('MPH Vue')
+
   logger.info('🚀 MPH Vue 扩展开始激活!')
   logger.info('Extension context path:', context.extensionPath)
   logger.show()

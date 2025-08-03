@@ -817,6 +817,11 @@
   resolved "https://registry.npmjs.org/@vue/shared/-/shared-3.5.18.tgz"
   integrity sha512-cZy8Dq+uuIXbxCZpuLd2GJdeSO/lIzIspC2WtkqIpje5QyFbvLaI5wZtdUjLHjGZrlVX6GilejatWwVYYRc8tA==
 
+"@wxml/parser@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@wxml/parser/-/parser-0.4.0.tgz#14c9ad4834a5c5b6c0e18126da79f82ec8b0fa97"
+  integrity sha512-pS0OPyKzCOhCPGlcfO9IDLZbqH4485bPdGDqaa+hYnI+cY/OW+GN4J88XpfdzM8wXJcJShFZy5F6MTUr2rysXg==
+
 alien-signals@^1.0.3:
   version "1.0.13"
   resolved "https://registry.npmjs.org/alien-signals/-/alien-signals-1.0.13.tgz"

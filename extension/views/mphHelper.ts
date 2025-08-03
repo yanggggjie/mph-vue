@@ -1,12 +1,10 @@
 import type { Disposable, ExtensionContext, Webview } from 'vscode';
 import { window, workspace, Position, Range, Selection, TextEditorRevealType } from 'vscode';
-import { useLogger, useActiveTextEditor, useEvent } from 'reactive-vscode';
+import { useActiveTextEditor, useEvent } from 'reactive-vscode';
 import { findComponentUsages } from '../find-usage';
+import { logger } from '../index';
 import * as path from 'path';
 import * as fs from 'fs';
-
-// 创建全局 logger
-const logger = useLogger('MPH Helper');
 
 // 设置 HTML 内容
 export function setupHtml(webview: Webview, context: ExtensionContext): string {
@@ -47,12 +45,17 @@ export function setupActiveEditorListener(webview: Webview, disposables: Disposa
 // 设置 webview 消息钩子
 export function setupWebviewHooks(webview: Webview, disposables: Disposable[]): void {
   logger.info('🔗 设置 webview 消息钩子');
+  logger.info('🌐 webview 对象:', webview ? 'exists' : 'null');
+  logger.info('📦 disposables 数组长度:', disposables.length);
   
   const addListener = useEvent(webview.onDidReceiveMessage);
+  logger.info('👂 消息监听器创建完成');
+  
   addListener((message: any) => {
     const type = message.type;
     const data = message.data;
     logger.info(`📨 MPH received message type: ${type}`, data);
+    logger.info('📊 完整消息对象:', JSON.stringify(message, null, 2));
     
     switch (type) {
       case 'refresh':
@@ -90,15 +93,28 @@ function handleRefresh(webview: Webview, data: any): void {
       : [];
     
     // 发送数据回Vue组件
-    webview.postMessage({
+    // 发送的数据结构应该匹配Vue组件期望的格式
+    const dataToSend = {
+      fileInfo,
+      componentUsages
+    };
+    
+    logger.info('📤 准备发送数据到 webview:');
+    logger.info('   📄 fileInfo:', fileInfo ? JSON.stringify(fileInfo, null, 2) : 'null');
+    logger.info('   🧩 componentUsages 数量:', componentUsages.length);
+    logger.info('   🧩 componentUsages 详情:', JSON.stringify(componentUsages, null, 2));
+    logger.info('   📦 完整数据对象:', JSON.stringify(dataToSend, null, 2));
+    
+    // 使用原生VSCode webview.postMessage，发送格式为 { type: 'refresh', data: dataToSend }
+    // Vue组件的 vscodeApi.on('refresh', callback) 会接收到 dataToSend 作为参数
+    const messageData = {
       type: 'refresh',
-      data: {
-        fileInfo,
-        componentUsages
-      }
-    });
-
-    logger.info('📤 Data sent to webview, fileInfo:', fileInfo ? 'exists' : 'null');
+      data: dataToSend
+    };
+    
+    webview.postMessage(messageData);
+    
+    logger.info('✅ 数据已发送到 webview');
     
     if (fileInfo && !fileInfo.isValidType) {
       window.showInformationMessage('当前文件类型不支持组件分析');
@@ -128,6 +144,12 @@ function getCurrentFileInfo() {
     const validExtensions = ['.json', '.js', '.ts', '.wxml', '.wxss', '.scss'];
     const fileExtension = path.extname(fileName).toLowerCase();
     
+    logger.info('🔍 文件类型检查:');
+    logger.info('   📄 文件名:', fileName);
+    logger.info('   🔧 文件扩展名:', fileExtension);
+    logger.info('   ✅ 支持的扩展名:', validExtensions);
+    logger.info('   🎯 是否支持:', validExtensions.includes(fileExtension));
+    
     if (!validExtensions.includes(fileExtension)) {
       logger.info('❌ File type not supported for component analysis:', fileExtension);
       return {
@@ -138,6 +160,8 @@ function getCurrentFileInfo() {
         isValidType: false
       };
     }
+    
+    logger.info('✅ 文件类型检查通过，支持组件分析');
     
     return {
       fileName,
@@ -251,6 +275,11 @@ function openReferenceFile(currentJsonPath: string, componentName: string, refer
       logger.error('❌ 查找组件声明失败:', error);
     }
   }
+}
+
+// 导出外部可调用的 handleRefresh 函数
+export function handleRefreshExternal(webview: Webview): void {
+  handleRefresh(webview, {});
 }
 
 // 为了保持向后兼容，导出一个对象，模拟原来的类接口
