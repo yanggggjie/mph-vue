@@ -5,6 +5,7 @@
   "type": "module",
   "version": "0.0.1",
   "private": true,
+  "repository":"https://github.com/yanggggjie/mph-vue",
   "description": "专为微信小程序开发者设计的组件使用情况分析工具。快速查找组件在项目中的使用位置，支持精确定位到WXML文件的具体行列，提供一键跳转功能。基于Vue技术栈开发。",
   "main": "dist/extension/index.js",
   "engines": {
@@ -95,7 +96,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "package": "yarn run build && vsce package"
   },
   "dependencies": {
     "@tomjs/vscode": "^2.5.0",
@@ -113,6 +115,7 @@
     "@types/vscode": "^1.75.0",
     "@types/vscode-webview": "^1.57.5",
     "@vitejs/plugin-vue": "^6.0.1",
+    "@vscode/vsce": "^3.6.0",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3",
     "vite": "^7.0.6",

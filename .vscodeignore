@@ -1,0 +1,69 @@
+# Build outputs
+out/
+*.vsix
+extension/
+example/
+.idea/
+
+# Node modules
+node_modules/
+
+# Source files
+src/
+*.ts
+*.js.map
+*.ts.map
+
+# Development files
+.vscode/
+.vscode-test/
+.eslintrc*
+.prettierrc*
+eslint.config.*
+*.config.js
+*.config.ts
+*.config.mjs
+vite.config.ts
+tsconfig*.json
+.gitignore
+
+# Documentation
+README.md
+CHANGELOG.md
+docs/
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Test files
+test/
+tests/
+**/*.test.js
+**/*.test.ts
+**/*.spec.js
+**/*.spec.ts
+
+# Environment files
+.env*
+
+# Logs
+*.log
+logs/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# Development dependencies source maps
+*.map
