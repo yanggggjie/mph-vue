@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { allComponents, provideVSCodeDesignSystem } from '@vscode/webview-ui-toolkit';
 import { ref, computed, onMounted } from 'vue';
 import { vscodeApi } from '../utils';
 
-// 注册VSCode组件
-provideVSCodeDesignSystem().register(allComponents);
 
 // 定义接口
 interface ComponentPosition {
