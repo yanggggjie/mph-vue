@@ -2,7 +2,7 @@
   "publisher": "mph-dev",
   "name": "mph-vue",
   "displayName": "MPH - 微信小程序组件使用情况查找器 (Vue版)",
-  "type": "module",
+  "type": "commonjs",
   "version": "0.0.1",
   "private": true,
   "repository":"https://github.com/yanggggjie/mph-vue",
