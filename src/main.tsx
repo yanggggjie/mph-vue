@@ -1,8 +1,9 @@
-import { createApp } from 'vue';
-import App from './App.vue';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 
 // 添加全局的 webview 消息监听调试
-console.log('🚀 Vue 应用开始初始化');
+console.log('🚀 React 应用开始初始化');
 
 // 检查 vscode API 是否可用
 if (typeof acquireVsCodeApi !== 'undefined') {
@@ -18,5 +19,9 @@ if (typeof acquireVsCodeApi !== 'undefined') {
   console.warn('❌ VSCode API 不可用');
 }
 
-createApp(App).mount('#app');
-console.log('✅ Vue 应用挂载完成');
+ReactDOM.createRoot(document.getElementById('app')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+);
+console.log('✅ React 应用挂载完成');

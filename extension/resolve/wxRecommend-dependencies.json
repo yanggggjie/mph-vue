@@ -1,0 +1,489 @@
+{
+  "metadata": {
+    "scanPath": "/Users/youshiyitian/Code/xiaodian/github/wxa-channels-shop/src/miniprogram/subpackages/wxRecommend",
+    "timestamp": "2025-08-16T08:12:22.915Z",
+    "statistics": {
+      "totalFiles": 38,
+      "totalDependencies": 65,
+      "totalReferences": 32,
+      "mostReferencedComponent": {
+        "path": "/main/components/navigationBar/navigationBar.wxml",
+        "count": 9
+      },
+      "averageReferencesPerDependency": "0.49"
+    }
+  },
+  "dependencyGraph": {
+    "/subpackages/wxRecommend/pages/recommendDiscover/recommendDiscover.wxml": [
+      {
+        "path": "/main/components/navigationBar/navigationBar.wxml",
+        "referList": [
+          {
+            "line": 3,
+            "column": 5
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/shopItem/shopItem.wxml",
+        "referList": []
+      },
+      {
+        "path": "/main/components/actionSheet/actionSheet.wxml",
+        "referList": [
+          {
+            "line": 118,
+            "column": 1
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/productActivityCard/productActivityCard.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/statusArea/statusArea.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/behaviorReport/behaviorReportSloter/index.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/recommendProductFeed/recommendProductFeed.wxml",
+        "referList": []
+      }
+    ],
+    "/main/components/navigationBar/navigationBar.wxml": [],
+    "/subpackages/wxRecommend/components/shopItem/shopItem.wxml": [
+      {
+        "path": "/subpackages/wxRecommend/components/shopInfo/shopInfo.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/behaviorReport/behaviorReportSloter/index.wxml",
+        "referList": []
+      }
+    ],
+    "/subpackages/wxRecommend/components/shopInfo/shopInfo.wxml": [
+      {
+        "path": "/subpackages/wxRecommend/components/behaviorReport/behaviorReportSloter/index.wxml",
+        "referList": []
+      }
+    ],
+    "/subpackages/wxRecommend/components/behaviorReport/behaviorReportSloter/index.wxml": [],
+    "/main/components/actionSheet/actionSheet.wxml": [
+      {
+        "path": "/main/common/report/behaviorReport/behaviorReportSloter/index.wxml",
+        "referList": []
+      }
+    ],
+    "/main/common/report/behaviorReport/behaviorReportSloter/index.wxml": [],
+    "/subpackages/wxRecommend/components/productActivityCard/productActivityCard.wxml": [
+      {
+        "path": "/main/components/pictureDisplay/pictureDisplay.wxml",
+        "referList": []
+      }
+    ],
+    "/main/components/pictureDisplay/pictureDisplay.wxml": [],
+    "/subpackages/wxRecommend/components/statusArea/statusArea.wxml": [],
+    "/subpackages/wxRecommend/components/recommendProductFeed/recommendProductFeed.wxml": [
+      {
+        "path": "/subpackages/wxRecommend/components/collectionCard/collectionCard.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/behaviorReport/behaviorReportSloter/index.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/productActivityCard/productActivityCard.wxml",
+        "referList": []
+      }
+    ],
+    "/subpackages/wxRecommend/components/collectionCard/collectionCard.wxml": [
+      {
+        "path": "/main/components/pictureDisplay/pictureDisplay.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/behaviorReport/behaviorReportSloter/index.wxml",
+        "referList": []
+      }
+    ],
+    "/subpackages/wxRecommend/pages/home/home.wxml": [],
+    "/subpackages/wxRecommend/pages/recommendLanding/recommendLanding.wxml": [
+      {
+        "path": "/main/components/navigationBar/navigationBar.wxml",
+        "referList": [
+          {
+            "line": 89,
+            "column": 9
+          },
+          {
+            "line": 141,
+            "column": 17
+          },
+          {
+            "line": 225,
+            "column": 5
+          }
+        ]
+      },
+      {
+        "path": "/main/components/actionSheet/actionSheet.wxml",
+        "referList": [
+          {
+            "line": 251,
+            "column": 1
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/recommendProductFeed/recommendProductFeed.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/pages/recommendLanding/tab-dialog/index.wxml",
+        "referList": [
+          {
+            "line": 121,
+            "column": 13
+          },
+          {
+            "line": 187,
+            "column": 21
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/recommendFilter/index.wxml",
+        "referList": [
+          {
+            "line": 120,
+            "column": 13
+          },
+          {
+            "line": 186,
+            "column": 21
+          }
+        ]
+      }
+    ],
+    "/subpackages/wxRecommend/pages/recommendLanding/tab-dialog/index.wxml": [],
+    "/subpackages/wxRecommend/components/recommendFilter/index.wxml": [
+      {
+        "path": "/subpackages/wxRecommend/components/search/keyboard/index.wxml",
+        "referList": []
+      }
+    ],
+    "/subpackages/wxRecommend/components/search/keyboard/index.wxml": [],
+    "/subpackages/wxRecommend/pages/recommend/recommend.wxml": [
+      {
+        "path": "/main/components/navigationBar/navigationBar.wxml",
+        "referList": [
+          {
+            "line": 48,
+            "column": 5
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/pageTab/pageTab.wxml",
+        "referList": [
+          {
+            "line": 95,
+            "column": 25
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/statusArea/statusArea.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/recommendProductList/recommendProductList.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/recommendProductFeed/recommendProductFeed.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/behaviorReport/behaviorReportSloter/index.wxml",
+        "referList": [
+          {
+            "line": 257,
+            "column": 21
+          }
+        ]
+      },
+      {
+        "path": "/main/components/actionSheet/actionSheet.wxml",
+        "referList": [
+          {
+            "line": 325,
+            "column": 1
+          },
+          {
+            "line": 326,
+            "column": 1
+          }
+        ]
+      },
+      {
+        "path": "/main/components/errMsg/index.wxml",
+        "referList": [
+          {
+            "line": 308,
+            "column": 5
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/recommendFilter/index.wxml",
+        "referList": [
+          {
+            "line": 222,
+            "column": 21
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/noticeBar/noticeBar.wxml",
+        "referList": [
+          {
+            "line": 115,
+            "column": 25
+          }
+        ]
+      }
+    ],
+    "/subpackages/wxRecommend/components/pageTab/pageTab.wxml": [],
+    "/subpackages/wxRecommend/components/recommendProductList/recommendProductList.wxml": [
+      {
+        "path": "/subpackages/wxRecommend/components/behaviorReport/behaviorReportSloter/index.wxml",
+        "referList": []
+      },
+      {
+        "path": "/main/components/slideview/slideview.wxml",
+        "referList": [
+          {
+            "line": 24,
+            "column": 9
+          }
+        ]
+      },
+      {
+        "path": "/main/components/actionSheet/actionSheet.wxml",
+        "referList": [
+          {
+            "line": 164,
+            "column": 5
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/search/resultBox/index.wxml",
+        "referList": []
+      }
+    ],
+    "/main/components/slideview/slideview.wxml": [],
+    "/subpackages/wxRecommend/components/search/resultBox/index.wxml": [
+      {
+        "path": "/subpackages/wxRecommend/components/behaviorReport/behaviorReportSloter/index.wxml",
+        "referList": [
+          {
+            "line": 5,
+            "column": 9
+          },
+          {
+            "line": 12,
+            "column": 9
+          }
+        ]
+      }
+    ],
+    "/main/components/errMsg/index.wxml": [],
+    "/subpackages/wxRecommend/components/noticeBar/noticeBar.wxml": [],
+    "/subpackages/wxRecommend/pages/recommendActivity/recommendActivity.wxml": [
+      {
+        "path": "/main/components/navigationBar/navigationBar.wxml",
+        "referList": [
+          {
+            "line": 3,
+            "column": 5
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/shopItem/shopItem.wxml",
+        "referList": []
+      },
+      {
+        "path": "/main/components/actionSheet/actionSheet.wxml",
+        "referList": [
+          {
+            "line": 81,
+            "column": 1
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/statusArea/statusArea.wxml",
+        "referList": []
+      }
+    ],
+    "/subpackages/wxRecommend/pages/giftHistory/giftHistory.wxml": [
+      {
+        "path": "/main/components/navigationBar/navigationBar.wxml",
+        "referList": [
+          {
+            "line": 15,
+            "column": 6
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/statusArea/statusArea.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/recommendProductList/recommendProductList.wxml",
+        "referList": []
+      }
+    ],
+    "/subpackages/wxRecommend/pages/search/search.wxml": [
+      {
+        "path": "/main/components/navigationBar/navigationBar.wxml",
+        "referList": [
+          {
+            "line": 3,
+            "column": 5
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/statusArea/statusArea.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/search/searchInput/index.wxml",
+        "referList": [
+          {
+            "line": 7,
+            "column": 8
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/search/searchRecordV2/index.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/search/filter/index.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/search/searchSuggestion/index.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/recommendProductList/recommendProductList.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/search/shopCard/index.wxml",
+        "referList": []
+      }
+    ],
+    "/subpackages/wxRecommend/components/search/searchInput/index.wxml": [],
+    "/subpackages/wxRecommend/components/search/searchRecordV2/index.wxml": [],
+    "/subpackages/wxRecommend/components/search/filter/index.wxml": [
+      {
+        "path": "/subpackages/wxRecommend/components/search/keyboard/index.wxml",
+        "referList": []
+      }
+    ],
+    "/subpackages/wxRecommend/components/search/searchSuggestion/index.wxml": [],
+    "/subpackages/wxRecommend/components/search/shopCard/index.wxml": [
+      {
+        "path": "/subpackages/wxRecommend/components/behaviorReport/behaviorReportSloter/index.wxml",
+        "referList": []
+      },
+      {
+        "path": "/main/components/pictureDisplay/pictureDisplay.wxml",
+        "referList": [
+          {
+            "line": 50,
+            "column": 21
+          },
+          {
+            "line": 81,
+            "column": 29
+          }
+        ]
+      }
+    ],
+    "/subpackages/wxRecommend/pages/recommendFlow/recommendFlow.wxml": [
+      {
+        "path": "/main/components/navigationBar/navigationBar.wxml",
+        "referList": [
+          {
+            "line": 3,
+            "column": 5
+          }
+        ]
+      },
+      {
+        "path": "/main/components/actionSheet/actionSheet.wxml",
+        "referList": [
+          {
+            "line": 29,
+            "column": 6
+          }
+        ]
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/masonryProductFeed/masonryProductFeed.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/commonDependence/components/envIndicator/index.wxml",
+        "referList": [
+          {
+            "line": 30,
+            "column": 1
+          }
+        ]
+      }
+    ],
+    "/subpackages/wxRecommend/components/masonryProductFeed/masonryProductFeed.wxml": [
+      {
+        "path": "/subpackages/wxRecommend/components/masonryGoodsCard/masonryGoodsCard.wxml",
+        "referList": []
+      },
+      {
+        "path": "/subpackages/wxRecommend/components/behaviorReport/behaviorReportSloter/index.wxml",
+        "referList": []
+      }
+    ],
+    "/subpackages/wxRecommend/components/masonryGoodsCard/masonryGoodsCard.wxml": [
+      {
+        "path": "/main/components/pictureDisplay/pictureDisplay.wxml",
+        "referList": []
+      },
+      {
+        "path": "/main/components/tagLine/tagLine.wxml",
+        "referList": []
+      },
+      {
+        "path": "/main/components/enhancedVideo/enhancedVideo.wxml",
+        "referList": []
+      }
+    ],
+    "/main/components/tagLine/tagLine.wxml": [],
+    "/main/components/enhancedVideo/enhancedVideo.wxml": [],
+    "/subpackages/commonDependence/components/envIndicator/index.wxml": []
+  }
+}

@@ -1,12 +1,12 @@
 {
   "publisher": "mph-dev",
-  "name": "mph-vue",
-  "displayName": "MPH - 微信小程序组件使用情况查找器 (Vue版)",
+  "name": "mph-react",
+  "displayName": "MPH - 微信小程序组件使用情况查找器 (React版)",
   "type": "commonjs",
   "version": "0.0.1",
   "private": true,
-  "repository":"https://github.com/yanggggjie/mph-vue",
-  "description": "专为微信小程序开发者设计的组件使用情况分析工具。快速查找组件在项目中的使用位置，支持精确定位到WXML文件的具体行列，提供一键跳转功能。基于Vue技术栈开发。",
+  "repository": "https://github.com/yanggggjie/mph-react",
+  "description": "专为微信小程序开发者设计的组件使用情况分析工具。快速查找组件在项目中的使用位置，支持精确定位到WXML文件的具体行列，提供一键跳转功能。基于React技术栈开发。",
   "main": "dist/extension/index.js",
   "engines": {
     "node": ">=18",
@@ -28,7 +28,7 @@
     "find",
     "wxml",
     "json",
-    "vue"
+    "react"
   ],
   "activationEvents": [
     "onLanguage:json",
@@ -95,29 +95,35 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
-    "package": "yarn run build && vsce package"
+    "package": "yarn run build && vsce package",
+    "test": "bun run resolve/test.ts"
   },
   "dependencies": {
+    "@dagrejs/dagre": "^1.1.5",
     "@tomjs/vscode": "^2.5.0",
     "@tomjs/vscode-webview": "^2.0.0",
     "@wxml/parser": "^0.4.0",
-    "reactive-vscode": "^0.3.1",
-    "vue": "^3.5.11"
+    "@xyflow/react": "^12.8.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "reactive-vscode": "^0.3.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.11",
     "@tomjs/tsconfig": "^2.0.0",
     "@tomjs/vite-plugin-vscode": "^5.0.0",
     "@types/node": "20.x",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "@types/vscode": "^1.75.0",
     "@types/vscode-webview": "^1.57.5",
-    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitejs/plugin-react": "^4.4.1",
+    "@vitejs/plugin-react-swc": "^3.9.0",
     "@vscode/vsce": "^3.6.0",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3",
-    "vite": "^7.0.6",
-    "vue-tsc": "^2.1.10"
+    "vite": "^7.0.6"
   }
 }

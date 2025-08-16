@@ -1,0 +1,92 @@
+解析pages的所有组件依赖，并建立邻接表
+
+默认路径别名/为${workspaceFolder}/src/miniprogram/
+
+
+首先是识别 是不是components或者pages，就两种
+比如对于/subpackages/wxRecommend/pages/home
+
+一种采用目录同名的json、ts、wxml、wxss/less文件
+一种采用index.json、index.ts、index.wxml、index.wxss/less文件
+
+然后怎么判断是pages还是components通过json中的  "component": true 来判断
+如果为true，则认为是components，否则认为是pages
+
+
+
+
+
+
+解析依赖的过程应该是这样
+我会给定初始的绝对路径pages目录，然后你解析这个pages目录，然后解析这个pages目录的依赖
+比如 /Users/youshiyitian/Code/xiaodian/github/wxa-channels-shop/src/miniprogram/subpackages/wxRecommend/pages
+
+
+
+
+
+先对于一个pages目录，首先确保是pages,通过json中没有usingComponents字段来判断
+
+然后取出json文件，解析json文件中的usingComponents字段
+
+遍历usingComponents字段中存在组件，key为组件的名称，value为组件的路径
+
+通过路径取出其wxml文件，用parser解析wxml文件，匹配到其中的key确实在wxml中出现，则这个组件真的被引用了
+这个组件真的被引用了之后，将value的路径转换为绝对路径，添加到对应的邻接表中
+
+然后将value的路径添加到下一个要解析的队列中
+
+
+
+
+
+然后对队列重复直到清空
+
+形成一个邻接表，这个邻接表全部采用绝对路径
+{
+  "/subpackages/wxRecommend/pages/giftHistory/giftHistory": [
+    "/main/components/navigationBar/navigationBar",
+    "/subpackages/wxRecommend/components/statusArea/statusArea", 
+    "/subpackages/wxRecommend/components/recommendProductList/recommendProductList",
+    "/main/pages/productDetail/components/giftDialog/giftDialog"
+  ],
+  "/subpackages/wxRecommend/components/statusArea/statusArea": [
+    // statusArea组件没有依赖其他组件，只使用原生标签
+  ],
+  "/subpackages/wxRecommend/components/recommendProductList/recommendProductList": [
+    "/subpackages/wxRecommend/components/productCard/productCard",
+    "/subpackages/wxRecommend/components/behaviorReport/behaviorReportSloter/index",  // 注意：这个使用index命名
+    "/main/components/slideview/slideview", 
+    "/main/components/actionSheet/actionSheet",
+    "/subpackages/wxRecommend/components/search/resultBox/index"  // 注意：这个也使用index命名
+  ]
+}
+
+
+
+
+
+
+
+@dependencies-2025-08-15.json 这里会涉及到这样一种情况，就是同一个组件被同一个组件引用多次
+比如/main/components/navigationBar被/subpackages/wxRecommend/pages/recommendDiscover引用了两次，在不同的行数中
+
+现在要改变这个邻接表的路径表示方式 对于pages应该改为具体的wxml文件比如/subpackages/wxRecommend/pages/recommendDiscover/recommendDiscover.wxml
+
+而组件应该要加上具体的被wxml引用的行列数了
+比如/main/components/navigationBar应该改为
+{
+ path:/main/components/navigationBar/navigationBar.wxml,
+ referenceList:
+[
+  {
+    line:xx,
+    column:xx
+  },  {
+    line:yy,
+    column:yy
+  }
+ ]
+}
+
+

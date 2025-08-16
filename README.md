@@ -1,6 +1,6 @@
-# MPH Vue - 微信小程序组件使用情况查找器 (Vue版)
+# MPH React - 微信小程序组件使用情况查找器 (React版)
 
-专为微信小程序开发者设计的VSCode扩展，基于Vue技术栈开发。快速查找组件在项目中的使用位置，支持精确定位到WXML文件的具体行列，提供一键跳转功能。
+专为微信小程序开发者设计的VSCode扩展，基于React技术栈开发。快速查找组件在项目中的使用位置，支持精确定位到WXML文件的具体行列，提供一键跳转功能。
 
 ## 功能特性
 
@@ -37,7 +37,7 @@
 
 ## 技术栈
 
-- **前端**: Vue 3 + Vite + TypeScript
+- **前端**: React 18 + Vite + TypeScript
 - **扩展框架**: VSCode Extension API
 - **构建工具**: @tomjs/vite-plugin-vscode
 - **UI组件**: VSCode Webview UI Toolkit
@@ -46,23 +46,21 @@
 ## 项目结构
 
 ```
-mph-vue/
+mph-react/
 ├── extension/              # 扩展后端逻辑
 │   ├── index.ts           # 扩展入口点
 │   ├── find-usage.ts      # 组件查找核心逻辑
 │   └── views/
-│       ├── mphVueView.ts  # MPH Vue组件分析面板
-│       ├── mphView.ts     # 原始HTML面板（备用）
-│       ├── sidebarView.ts # Vue示例面板
-│       └── panel.ts       # 面板基础功能
-├── src/                   # Vue前端源码
+│       ├── mphWebviewView.ts # MPH React组件分析面板
+│       └── mphHelper.ts   # 面板辅助功能
+├── src/                   # React前端源码
 │   ├── components/
-│   │   └── MphAnalyzer.vue # MPH组件分析Vue组件
+│   │   └── MphAnalyzer.tsx # MPH组件分析React组件
 │   ├── utils/
 │   │   ├── index.ts       # 工具函数
 │   │   └── vscode.ts      # VSCode API封装
-│   ├── App.vue            # Vue应用入口
-│   └── main.ts            # 前端入口点
+│   ├── App.tsx            # React应用入口
+│   └── main.tsx           # 前端入口点
 ├── package.json           # 项目配置
 └── vite.config.ts         # Vite配置
 ```
@@ -85,23 +83,23 @@ npm run build
 
 ## 迁移说明
 
-本项目是从原始的MPH项目迁移而来，保留了所有核心功能的同时，使用Vue 3重新设计了用户界面。主要改进包括：
+本项目是从原始的MPH项目迁移而来，保留了所有核心功能的同时，使用React 18重新设计了用户界面。主要改进包括：
 
 - ✅ **完整功能迁移**: 保留原版所有组件使用情况分析功能
 - ✅ **精确位置跳转**: 支持跳转到WXML文件的具体行列位置
-- ✅ **Vue 3界面**: 使用Vue 3 + TypeScript开发现代化用户界面
+- ✅ **React 18界面**: 使用React 18 + TypeScript开发现代化用户界面
 - ✅ **VSCode UI组件**: 集成VSCode Webview UI Toolkit，保持界面一致性
-- ✅ **响应式设计**: 响应式数据管理，实时更新组件信息
+- ✅ **响应式设计**: React Hooks状态管理，实时更新组件信息
 - ✅ **TypeScript支持**: 全面的类型安全和智能提示
 - ✅ **HMR支持**: 开发时支持热模块替换，提升开发效率
 - ✅ **ES模块支持**: 使用现代ES模块语法，更好的性能
 
-### Vue界面特性
+### React界面特性
 
-- **组件化设计**: 模块化的Vue组件，易于维护和扩展  
+- **组件化设计**: 模块化的React组件，易于维护和扩展  
 - **实时通信**: 前后端通过@tomjs/vscode-webview API实时通信
 - **用户友好**: 直观的操作界面，点击即可跳转到目标位置
-- **状态管理**: 响应式状态管理，自动更新界面数据
+- **状态管理**: React Hooks状态管理，自动更新界面数据
 
 ## 许可证
 
